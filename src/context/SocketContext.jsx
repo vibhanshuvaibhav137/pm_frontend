@@ -113,7 +113,7 @@ export const SocketProvider = ({ children }) => {
       // Get the base URL without the '/api' part
       const baseUrl = import.meta.env.VITE_API_URL 
         ? import.meta.env.VITE_API_URL.replace('/api', '')
-        : 'http://localhost:5000';
+        : import.meta.env.VITE_SOCKET_URL;
       
       // Create new socket connection
       const newSocket = io(baseUrl, {
