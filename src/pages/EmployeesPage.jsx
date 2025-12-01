@@ -4,6 +4,7 @@ import UserService from '../services/user.service';
 import NotificationService from '../services/notification.service';
 import { format } from 'date-fns';
 import { FiPlus, FiMessageSquare, FiX } from 'react-icons/fi';
+import api from '../services/api';
 
 const EmployeesPage = () => {
   const [users, setUsers] = useState([]);
@@ -40,16 +41,9 @@ const EmployeesPage = () => {
 
   const handleAddUser = async () => {
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(newUser)
-      });
       
-      const data = await response.json();
+      const response = await api.post("/auth/register", newUser);
+      const data = response.data; 
       
       if (data.success) {
         setOpenAddDialog(false);
